@@ -72,6 +72,8 @@ components:
       oneOf:
         - $ref: '#/components/schemas/Dog'
         - $ref: '#/components/schemas/Cat'
+      discriminator:
+        propertyName: petType          
     PetWithMessageUpdated:
       allOf:
         - $ref: '#/components/schemas/Pet'
