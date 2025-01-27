@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  version: 1.0.0
+paths:
+  /pets:
+    get:
+      summary: Get a list of pets
+      description: Retrieve a list of pets from the system
+      responses:
+        '200':
+          description: A list of pets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        tag:
+          type: string
+      required:
+        - id
+        - name
+    Dog:
+      type: object
+      properties:
+        breed:
+          type: string
+        isFriendly:
+          type: boolean
+        petType:
+          type: string          
+      required:
+        - breed
+        - petType
+    Cat:
+      type: object
+      properties:
+        color:
+          type: string
+        livesLeft:
+          type: integer
+        petType:
+          type: string          
+      required:
+        - color
+        - petType
+    PetResponse:
+      description: Pet response example using `anyOf`, `allOf`, and `not`
+      anyOf:
+        - $ref: '#/components/schemas/Dog'
+        - $ref: '#/components/schemas/Cat'
+        - type: object
+          properties:
+            message:
+              type: string
+            reason:
+              type: string
+          required:
+            - message
+    testResponse:
+      description: Pet response example using `anyOf`, `allOf`, and `not`
+      oneOf:
+        - $ref: '#/components/schemas/Dog'
+        - $ref: '#/components/schemas/Cat'
+    PetWithMessageUpdated:
+      allOf:
+        - $ref: '#/components/schemas/Pet'
+        - type: object
+          properties:
+            message:
+              type: string
+          required:
+            - message
+    InvalidPet:
+      not:
+        $ref: '#/components/schemas/Dog'
+      description: This defines a schema for any object that is **not** a Dog.
