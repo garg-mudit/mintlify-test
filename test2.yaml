@@ -67,7 +67,7 @@ components:
               type: string
           required:
             - message
-    PetResponse:
+    PetResponse2:
       description: Pet response example using `anyOf`, `allOf`, and `not`
       oneOf:
         - $ref: '#/components/schemas/Dog'
